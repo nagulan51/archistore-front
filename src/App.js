@@ -8,6 +8,7 @@ import LoginPage from './pages/Login';
 import ClientPage from './pages/Client';
 import AdminPage from './pages/Admin';
 import LandingPage from './pages/Home';
+import SignupPage from './pages/Signup';
 
 const App = () => {
   const location = useLocation();
@@ -22,6 +23,7 @@ const App = () => {
           <Route path="/client" element={<ClientPage />} />
           <Route path="/admin" element={<AdminPage />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignupPage />} />
         </Routes>
       </AnimatePresence>
       <Footer />

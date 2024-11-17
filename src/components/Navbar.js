@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'; // Import Link
 import { colors } from '../styles/colors';
 
 const NavBar = styled.nav`
@@ -12,10 +12,15 @@ const NavBar = styled.nav`
   padding: 1rem 2rem;
 `;
 
-const NavTitle = styled.h1`
+const NavTitle = styled(Link)` /* Styled Link for NavTitle */
   font-size: 1.5rem;
   font-weight: bold;
   color: ${colors.textNavbar};
+  text-decoration: none;
+
+  &:hover {
+    color: ${colors.primary};
+  }
 `;
 
 const NavLinks = styled.ul`
@@ -36,9 +41,9 @@ const NavLinks = styled.ul`
 
 const Navbar = () => (
   <NavBar>
-    <NavTitle>Archistore</NavTitle>
+    <NavTitle to="/">Archistore</NavTitle> {/* Clickable NavTitle */}
     <NavLinks>
-      <li><Link to="/">Login</Link></li>
+      <li><Link to="/login">Login</Link></li>
       <li><Link to="/client">Dashboard</Link></li>
       <li><Link to="/admin">Admin</Link></li>
     </NavLinks>

@@ -1,8 +1,6 @@
-// src/pages/SignupPage.js
-
 import React from 'react';
-import AnimatedPage from '../components/AnimatedPage';
 import styled from 'styled-components';
+import AnimatedPage from '../components/AnimatedPage';
 
 const FormContainer = styled.div`
   display: flex;
@@ -59,16 +57,21 @@ const Button = styled.button`
 `;
 
 const SignupPage = () => {
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    alert('Signup form submitted!');
+  };
+
   return (
     <AnimatedPage>
       <FormContainer>
         <h2>Inscription</h2>
-        <Form>
+        <Form onSubmit={handleSubmit}>
           <Input type="text" placeholder="Nom complet" required />
           <Input type="email" placeholder="Adresse e-mail" required />
           <Input type="password" placeholder="Mot de passe" required />
           <PaymentInfo>
-            En continuant, vous acceptez de payer un <span>abonnement unique de 20€</span> pour 20 Go d'espace de stockage.
+            En continuant, vous acceptez de payer un <span>abonnement unique de 20€</span> pour 20 Go d’espace de stockage.
           </PaymentInfo>
           <Button type="submit">S'inscrire et payer</Button>
         </Form>
