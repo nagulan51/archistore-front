@@ -14,7 +14,7 @@ const FooterContainer = styled.footer`
 
 const Footer = () => (
   <FooterContainer>
-    © 2023 Archistore. All rights reserved.
+    © 2024 Archistore. All rights reserved.
   </FooterContainer>
 );
 

@@ -5,20 +5,22 @@ import GlobalStyle from './styles/Global';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import LoginPage from './pages/Login';
-import ClientPage from './pages/Client';
-import AdminPage from './pages/Admin';
+import ClientPage from './pages/Users/Client';
+import AdminPage from './pages/Users/Admin';
 import LandingPage from './pages/Home';
 import SignupPage from './pages/Signup';
+import AuthHandler from './AuthHandler';
 
-const App = () => {
+function App() {
   const location = useLocation();
 
   return (
     <>
+      <AuthHandler /> {/* Keeps track of inactivity */}
       <GlobalStyle />
       <Navbar />
       <AnimatePresence wait>
-        <Routes location={location} key={location.pathname}>
+      <Routes location={location} key={location.pathname}>
           <Route path="/" element={<LandingPage />} />
           <Route path="/client" element={<ClientPage />} />
           <Route path="/admin" element={<AdminPage />} />
@@ -29,6 +31,6 @@ const App = () => {
       <Footer />
     </>
   );
-};
+}
 
 export default App;
