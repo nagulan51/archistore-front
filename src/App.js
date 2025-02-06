@@ -10,6 +10,8 @@ import AdminPage from './pages/Users/Admin';
 import LandingPage from './pages/Home';
 import SignupPage from './pages/Signup';
 import AuthHandler from './AuthHandler';
+import BuyStorage from './pages/BuyStoragePage';
+import Dashboard from './pages/Dashboard';
 
 function App() {
   const location = useLocation();
@@ -22,10 +24,11 @@ function App() {
       <AnimatePresence wait>
       <Routes location={location} key={location.pathname}>
           <Route path="/" element={<LandingPage />} />
-          <Route path="/client" element={<ClientPage />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/admin" element={<AdminPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
+          <Route path="/buy-storage" element={<BuyStorage />} />
         </Routes>
       </AnimatePresence>
       <Footer />
