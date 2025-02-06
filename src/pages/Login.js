@@ -80,7 +80,7 @@ const LoginPage = ({ setIsLoggedIn }) => {
       if (response.ok) {
         localStorage.setItem('token', data.token);
         setIsLoggedIn(true); // ✅ Update Navbar immediately
-        navigate('/client'); 
+        navigate('/dashboard'); 
       } else {
         setError(data.message || 'Login failed. Please check your credentials.');
       }

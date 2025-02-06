@@ -107,7 +107,7 @@ const Dashboard = () => {
 
   if (selectedFile.size / (1024 * 1024) > stats.remainingStorage) {
     toast.warning('Not enough storage! Redirecting to Buy Storage page...');
-    navigate('/buy-storage'); // Redirect user to buy storage page
+    navigate('/buy-storage');
     return;
   }
 
