@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
 
 const DashboardContainer = styled.div`
   max-width: 800px;
@@ -62,6 +63,7 @@ const Button = styled.button`
 `;
 
 const Dashboard = () => {
+  const navigate = useNavigate();
   const [stats, setStats] = useState({ totalStorage: 0, usedStorage: 0, remainingStorage: 0 });
   const [files, setFiles] = useState([]);
   const [selectedFile, setSelectedFile] = useState(null);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import GlobalStyle from './styles/Global';
@@ -10,11 +10,18 @@ import AdminPage from './pages/Users/Admin';
 import LandingPage from './pages/Home';
 import SignupPage from './pages/Signup';
 import AuthHandler from './AuthHandler';
-import BuyStorage from './pages/BuyStoragePage';
+import BuyStorage from './pages/BuyStorage';
 import Dashboard from './pages/Dashboard';
+import PageNotFound from './pages/PageNotFound';
 
 function App() {
   const location = useLocation();
+  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('token'));
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    setIsLoggedIn(!!token);
+  }, []);
 
   return (
     <>
@@ -26,9 +33,10 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/admin" element={<AdminPage />} />
-          <Route path="/login" element={<LoginPage />} />
+          <Route path="/login" element={<LoginPage setIsLoggedIn={setIsLoggedIn} />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/buy-storage" element={<BuyStorage />} />
+          <Route path="*" element={<PageNotFound />}/>
         </Routes>
       </AnimatePresence>
       <Footer />

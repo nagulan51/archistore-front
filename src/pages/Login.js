@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
+
 const FormContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -54,7 +55,7 @@ const ErrorMessage = styled.p`
   margin-top: 10px;
 `;
 
-const LoginPage = () => {
+const LoginPage = ({ setIsLoggedIn }) => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -64,7 +65,7 @@ const LoginPage = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     setError('');
-
+  
     try {
       const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/auth/login`, {
         method: 'POST',
@@ -73,17 +74,13 @@ const LoginPage = () => {
         },
         body: JSON.stringify({ email, password }),
       });
-
+  
       const data = await response.json();
-
+  
       if (response.ok) {
         localStorage.setItem('token', data.token);
-        localStorage.setItem('loginTimestamp', Date.now()); // Store login time
-        toast.success('Login successful! Redirecting...');
-
-        setTimeout(() => {
-          navigate('/client'); // Redirect after success
-        }, 2000); // Wait 2 seconds before redirecting
+        setIsLoggedIn(true); // ✅ Update Navbar immediately
+        navigate('/client'); 
       } else {
         setError(data.message || 'Login failed. Please check your credentials.');
       }
@@ -91,6 +88,7 @@ const LoginPage = () => {
       setError('An error occurred. Please try again.');
     }
   };
+   
 
   return (
     <AnimatedPage>

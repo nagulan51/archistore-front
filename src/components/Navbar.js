@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { Link, useNavigate } from 'react-router-dom';
 import { colors } from '../styles/colors';
@@ -66,6 +66,7 @@ const DropdownMenu = styled.div`
   display: ${({ show }) => (show ? 'block' : 'none')};
   min-width: 150px;
   z-index: 10;
+  padding: 5px 0;
 `;
 
 const DropdownItem = styled(Link)`
@@ -84,11 +85,21 @@ const Navbar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   const navigate = useNavigate();
+  const dropdownRef = useRef(null);
 
   useEffect(() => {
-    // Check if a token exists in localStorage to determine if user is logged in
     const token = localStorage.getItem('token');
     setIsLoggedIn(!!token);
+
+    // Close dropdown when clicking outside
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowDropdown(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
   const handleLogout = () => {
@@ -104,12 +115,12 @@ const Navbar = () => {
         {!isLoggedIn ? (
           <li><Link to="/login">Login</Link></li>
         ) : (
-          <ProfileContainer onMouseEnter={() => setShowDropdown(true)} onMouseLeave={() => setShowDropdown(false)}>
-            <ProfileIcon />
+          <ProfileContainer ref={dropdownRef}>
+            <ProfileIcon onClick={() => setShowDropdown(!showDropdown)} />
             <DropdownMenu show={showDropdown}>
-              <DropdownItem to="/dashboard">Dashboard</DropdownItem>
+              <DropdownItem to="/dashboard" onClick={() => setShowDropdown(false)}>Dashboard</DropdownItem>
+              <DropdownItem to="/files" onClick={() => setShowDropdown(false)}>My Files</DropdownItem>
               <DropdownItem to="/buy-storage">Buy More Storage</DropdownItem>
-              <DropdownItem to="/files">My Files</DropdownItem>
               <DropdownItem as="button" onClick={handleLogout} style={{ border: 'none', background: 'none', cursor: 'pointer', width: '100%', textAlign: 'left' }}>
                 Sign Out
               </DropdownItem>
