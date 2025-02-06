@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
-import styled from 'styled-components';
-import { Link, useNavigate } from 'react-router-dom';
-import { colors } from '../styles/colors';
-import { FaUserCircle } from 'react-icons/fa';
+import React, { useState, useEffect, useRef } from "react";
+import styled from "styled-components";
+import { Link, useNavigate } from "react-router-dom";
+import { colors } from "../styles/colors";
+import { FaUserCircle } from "react-icons/fa";
+import logo from "../assets/img/logo.png";
 
 const NavBar = styled.nav`
   background-color: ${colors.navbar};
@@ -63,7 +64,7 @@ const DropdownMenu = styled.div`
   background: white;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
-  display: ${({ show }) => (show ? 'block' : 'none')};
+  display: ${({ show }) => (show ? "block" : "none")};
   min-width: 150px;
   z-index: 10;
   padding: 5px 0;
@@ -88,7 +89,7 @@ const Navbar = () => {
   const dropdownRef = useRef(null);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     setIsLoggedIn(!!token);
 
     // Close dropdown when clicking outside
@@ -98,30 +99,56 @@ const Navbar = () => {
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
+    localStorage.removeItem("token");
     setIsLoggedIn(false);
-    navigate('/login');
+    navigate("/login");
   };
 
   return (
     <NavBar>
-      <NavTitle to="/">Archistore</NavTitle>
+      <NavTitle to="/">
+        <img src={logo} alt="logo" style={{ width: "250px", height: "50px" }} />
+      </NavTitle>
       <NavLinks>
         {!isLoggedIn ? (
-          <li><Link to="/login">Login</Link></li>
+          <>
+            <li>
+              <Link to="/login">Login</Link>
+            </li>
+            <li>
+              <Link to="/plans">Plans</Link>
+            </li>
+          </>
         ) : (
           <ProfileContainer ref={dropdownRef}>
             <ProfileIcon onClick={() => setShowDropdown(!showDropdown)} />
             <DropdownMenu show={showDropdown}>
-              <DropdownItem to="/dashboard" onClick={() => setShowDropdown(false)}>Dashboard</DropdownItem>
-              <DropdownItem to="/files" onClick={() => setShowDropdown(false)}>My Files</DropdownItem>
+              <DropdownItem
+                to="/dashboard"
+                onClick={() => setShowDropdown(false)}
+              >
+                Dashboard
+              </DropdownItem>
+              <DropdownItem to="/files" onClick={() => setShowDropdown(false)}>
+                My Files
+              </DropdownItem>
               <DropdownItem to="/buy-storage">Buy More Storage</DropdownItem>
-              <DropdownItem as="button" onClick={handleLogout} style={{ border: 'none', background: 'none', cursor: 'pointer', width: '100%', textAlign: 'left' }}>
+              <DropdownItem
+                as="button"
+                onClick={handleLogout}
+                style={{
+                  border: "none",
+                  background: "none",
+                  cursor: "pointer",
+                  width: "100%",
+                  textAlign: "left",
+                }}
+              >
                 Sign Out
               </DropdownItem>
             </DropdownMenu>
