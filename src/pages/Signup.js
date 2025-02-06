@@ -145,7 +145,7 @@ const SignupPage = () => {
 
       if (loginResponse.ok) {
         localStorage.setItem('token', loginData.token);
-        navigate('/client'); // Redirect to client dashboard
+        navigate('/dashboard');
       } else {
         setError('Registration succeeded but login failed. Please log in manually.');
       }

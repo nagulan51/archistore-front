@@ -98,7 +98,7 @@ const BuyStorage = () => {
 
       if (response.ok) {
         toast.success('Storage successfully added!');
-        navigate('/client'); // Redirect back to dashboard
+        navigate('/dashboard');
       } else {
         toast.error('Failed to add storage.');
       }
