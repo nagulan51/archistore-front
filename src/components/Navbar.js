@@ -107,7 +107,8 @@ const Navbar = () => {
           <ProfileContainer onMouseEnter={() => setShowDropdown(true)} onMouseLeave={() => setShowDropdown(false)}>
             <ProfileIcon />
             <DropdownMenu show={showDropdown}>
-              <DropdownItem to="/client">Dashboard</DropdownItem>
+              <DropdownItem to="/dashboard">Dashboard</DropdownItem>
+              <DropdownItem to="/buy-storage">Buy More Storage</DropdownItem>
               <DropdownItem to="/files">My Files</DropdownItem>
               <DropdownItem as="button" onClick={handleLogout} style={{ border: 'none', background: 'none', cursor: 'pointer', width: '100%', textAlign: 'left' }}>
                 Sign Out

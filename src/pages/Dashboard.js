@@ -96,36 +96,38 @@ const Dashboard = () => {
   };
 
   const handleFileUpload = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    if (!selectedFile) {
-      toast.error('Please select a file.');
-      return;
-    }
+  if (!selectedFile) {
+    toast.error('Please select a file.');
+    return;
+  }
 
-    if (selectedFile.size / (1024 * 1024) > stats.remainingStorage) {
-      toast.error('Not enough storage available.');
-      return;
-    }
+  if (selectedFile.size / (1024 * 1024) > stats.remainingStorage) {
+    toast.warning('Not enough storage! Redirecting to Buy Storage page...');
+    navigate('/buy-storage'); // Redirect user to buy storage page
+    return;
+  }
 
-    const formData = new FormData();
-    formData.append('file', selectedFile);
+  const formData = new FormData();
+  formData.append('file', selectedFile);
 
-    try {
-      const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/files/upload`, {
-        method: 'POST',
-        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
-        body: formData,
-      });
+  try {
+    const response = await fetch(`${process.env.REACT_APP_SERVER_URL}/files/upload`, {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+      body: formData,
+    });
 
-      const data = await response.json();
-      toast.success('File uploaded successfully!');
-      setFiles([...files, data.file]);
-      fetchStats(); // Refresh storage stats
-    } catch (error) {
-      toast.error('Failed to upload file.');
-    }
-  };
+    const data = await response.json();
+    toast.success('File uploaded successfully!');
+    setFiles([...files, data.file]);
+    fetchStats(); // Refresh storage stats
+  } catch (error) {
+    toast.error('Failed to upload file.');
+  }
+};
+
 
   const handleDeleteFile = async (fileId) => {
     try {
