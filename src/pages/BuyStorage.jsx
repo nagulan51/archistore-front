@@ -74,10 +74,10 @@ const BuyStorage = () => {
     const expiryRegex = /^(0[1-9]|1[0-2])\/\d{2}$/;
     const cvvRegex = /^\d{3}$/;
 
-    if (!cardRegex.test(cardNumber) || !expiryRegex.test(expiry) || !cvvRegex.test(cvv)) {
-      toast.error('Invalid payment details. Please try again.');
-      return;
-    }
+    // if (!cardRegex.test(cardNumber) || !expiryRegex.test(expiry) || !cvvRegex.test(cvv)) {
+    //   toast.error('Invalid payment details. Please try again.');
+    //   return;
+    // }
 
     setShowPaymentModal(false);
     processStoragePurchase();

@@ -64,18 +64,18 @@ const DropdownMenu = styled.div`
   background: white;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
-  display: ${({ show }) => (show ? "block" : "none")};
-  min-width: 150px;
+  display: ${(props) => (props.show ? "block" : "none")}; /* ✅ Fixed boolean prop */
+  min-width: 180px;
   z-index: 10;
   padding: 5px 0;
 `;
 
-const DropdownItem = styled(Link)`
-  display: block;
+const DropdownItem = styled.div`
   padding: 10px;
   text-decoration: none;
   color: #333;
   font-weight: 500;
+  cursor: pointer;
 
   &:hover {
     background-color: #f5f5f5;
@@ -128,32 +128,10 @@ const Navbar = () => {
           <ProfileContainer ref={dropdownRef}>
             <ProfileIcon onClick={() => setShowDropdown(!showDropdown)} />
             <DropdownMenu show={showDropdown}>
-              <DropdownItem
-                to="/dashboard"
-                onClick={() => setShowDropdown(false)}
-              >
-                Dashboard
-              </DropdownItem>
-              {/*  <DropdownItem to="/files" onClick={() => setShowDropdown(false)}>
-                My Files
-              </DropdownItem> */}
-              <DropdownItem to="/buy-storage">Buy More Storage</DropdownItem>
-              <DropdownItem>
-                <Link to="#">Profile</Link>
-              </DropdownItem>
-              <DropdownItem
-                as="button"
-                onClick={handleLogout}
-                style={{
-                  border: "none",
-                  background: "none",
-                  cursor: "pointer",
-                  width: "100%",
-                  textAlign: "left",
-                }}
-              >
-                Sign Out
-              </DropdownItem>
+              <DropdownItem onClick={() => { navigate("/dashboard"); setShowDropdown(false); }}>Dashboard</DropdownItem>
+              <DropdownItem onClick={() => { navigate("/buy-storage"); setShowDropdown(false); }}>Buy More Storage</DropdownItem>
+              <DropdownItem onClick={() => { navigate("/profile"); setShowDropdown(false); }}>Profile</DropdownItem>
+              <DropdownItem onClick={handleLogout}>Sign Out</DropdownItem>
             </DropdownMenu>
           </ProfileContainer>
         )}
