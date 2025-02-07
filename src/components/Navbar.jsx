@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import { colors } from "../styles/colors";
 import { FaUserCircle } from "react-icons/fa";
-import logo from "../assets/img/logo.png";
+import logo from "../assets/img/logo1.png";
 
 const NavBar = styled.nav`
   background-color: ${colors.navbar};
@@ -134,10 +134,13 @@ const Navbar = () => {
               >
                 Dashboard
               </DropdownItem>
-              <DropdownItem to="/files" onClick={() => setShowDropdown(false)}>
+              {/*  <DropdownItem to="/files" onClick={() => setShowDropdown(false)}>
                 My Files
-              </DropdownItem>
+              </DropdownItem> */}
               <DropdownItem to="/buy-storage">Buy More Storage</DropdownItem>
+              <DropdownItem>
+                <Link to="#">Profile</Link>
+              </DropdownItem>
               <DropdownItem
                 as="button"
                 onClick={handleLogout}
